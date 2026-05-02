@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card shadow-sm border-0 mb-4">
+    <div class="card-body d-flex flex-wrap justify-content-between align-items-center gap-3">
+        <div>
+            <h1 class="h4 mb-1">{{ exam.title }}</h1>
+            <div class="text-muted">Answer every question before time expires.</div>
+        </div>
+        <div class="timer-badge badge rounded-pill text-bg-warning px-3 py-2 fs-6" id="timer"
+            data-end-time="{{ end_time }}">Loading timer...</div>
+    </div>
+</div>
+
+<form id="examForm" method="post" action="{{ url_for('submit_exam', exam_id=exam.id) }}">
+    {% for question in questions %}
+    <div class="card shadow-sm border-0 mb-3">
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-start gap-3 mb-3">
+                <h2 class="h5 mb-0">{{ loop.index }}. {{ question.question }}</h2>
+                <span class="badge text-bg-secondary">{{ question.subject }} / {{ question.difficulty }}</span>
+            </div>
+            {% set options = question.options %}
+            {% if question.question_type == 'multi' %}
+            {% for option in options %}
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="question_{{ question.id }}" value="{{ option }}"
+                    id="{{ question.id }}_{{ loop.index }}">
+                <label class="form-check-label" for="{{ question.id }}_{{ loop.index }}">{{ option }}</label>
+            </div>
+            {% endfor %}
+            {% else %}
+            {% for option in options %}
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="question_{{ question.id }}" value="{{ option }}"
+                    id="{{ question.id }}_{{ loop.index }}">
+                <label class="form-check-label" for="{{ question.id }}_{{ loop.index }}">{{ option }}</label>
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+    <button class="btn btn-dark btn-lg" type="submit">Submit Exam</button>
+</form>
+{% endblock %}

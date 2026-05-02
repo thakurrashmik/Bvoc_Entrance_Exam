@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card shadow-sm border-0 mb-4">
+    <div class="card-body">
+        <h1 class="h4 mb-2">Result Summary</h1>
+        <p class="text-muted mb-0">{{ result.exam_title }}</p>
+    </div>
+</div>
+<div class="row g-4 mb-4">
+    <div class="col-md-3">
+        <div class="card stat-card border-0 shadow-sm">
+            <div class="card-body">
+                <div class="text-muted">Score</div>
+                <div class="display-6 fw-bold">{{ result.score }}</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card stat-card border-0 shadow-sm">
+            <div class="card-body">
+                <div class="text-muted">Correct</div>
+                <div class="display-6 fw-bold">{{ result.correct_count }}</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card stat-card border-0 shadow-sm">
+            <div class="card-body">
+                <div class="text-muted">Incorrect</div>
+                <div class="display-6 fw-bold">{{ result.incorrect_count }}</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card stat-card border-0 shadow-sm">
+            <div class="card-body">
+                <div class="text-muted">Submitted</div>
+                <div class="small fw-semibold">{{ result.submitted_at }}</div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card shadow-sm border-0">
+    <div class="card-body">
+        <h2 class="h5 mb-3">Submitted Answers</h2>
+        <div class="table-responsive">
+            <table class="table mb-0 align-middle">
+                <thead>
+                    <tr>
+                        <th>Question ID</th>
+                        <th>Answer</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for question_id, answer in answers.items() %}
+                    <tr>
+                        <td>{{ question_id }}</td>
+                        <td>{% if answer is sequence and answer is not string %}{{ answer|join(', ') }}{% else %}{{
+                            answer }}{% endif %}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

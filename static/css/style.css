@@ -1,0 +1,38 @@
+:root {
+    --portal-bg: #f5f7fb;
+    --portal-accent: #0d6efd;
+    --portal-ink: #0f172a;
+}
+
+body {
+    background:
+        radial-gradient(circle at top left, rgba(13, 110, 253, 0.12), transparent 28%),
+        radial-gradient(circle at top right, rgba(13, 202, 240, 0.14), transparent 24%),
+        var(--portal-bg);
+    color: var(--portal-ink);
+}
+
+.hero-panel {
+    background: linear-gradient(135deg, #101828 0%, #1d4ed8 55%, #0ea5e9 100%);
+}
+
+.glass-card {
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.stat-card,
+.exam-card,
+.card {
+    border-radius: 1rem;
+}
+
+.question-pick-list {
+    max-height: 440px;
+    overflow: auto;
+}
+
+.timer-badge {
+    letter-spacing: 0.04em;
+}

@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row g-4">
+    <div class="col-lg-5">
+        <div class="card shadow-sm border-0">
+            <div class="card-body">
+                <h1 class="h4 mb-3">Add Question</h1>
+                <form method="post">
+                    <div class="mb-3">
+                        <label class="form-label">Question</label>
+                        <textarea class="form-control" name="question" rows="3" required></textarea>
+                    </div>
+                    <div class="row g-2 mb-3">
+                        <div class="col-md-6"><input class="form-control" name="subject" placeholder="Subject"></div>
+                        <div class="col-md-6"><input class="form-control" name="topic" placeholder="Topic"></div>
+                        <div class="col-md-6"><select class="form-select" name="difficulty">
+                                <option>Easy</option>
+                                <option>Medium</option>
+                                <option>Hard</option>
+                            </select></div>
+                        <div class="col-md-6"><select class="form-select" name="question_type">
+                                <option value="mcq">MCQ</option>
+                                <option value="multi">Multiple Select</option>
+                                <option value="true_false">True/False</option>
+                            </select></div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Options</label>
+                        <input class="form-control mb-2" name="options" placeholder="Option 1">
+                        <input class="form-control mb-2" name="options" placeholder="Option 2">
+                        <input class="form-control mb-2" name="options" placeholder="Option 3">
+                        <input class="form-control" name="options" placeholder="Option 4">
+                        <div class="form-text">Use the same option field name to store multiple values.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Correct Answer</label>
+                        <input class="form-control" name="correct_answer" placeholder="Exact option text" required>
+                    </div>
+                    <button class="btn btn-dark" type="submit">Save Question</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-7">
+        <div class="card shadow-sm border-0">
+            <div class="card-body">
+                <h2 class="h4 mb-3">Question Bank</h2>
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead>
+                            <tr>
+                                <th>Question</th>
+                                <th>Type</th>
+                                <th>Subject</th>
+                                <th>Difficulty</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for question in questions %}
+                            <tr>
+                                <td>{{ question.question }}</td>
+                                <td>{{ question.question_type }}</td>
+                                <td>{{ question.subject }}</td>
+                                <td>{{ question.difficulty }}</td>
+                                <td>
+                                    <form method="post"
+                                        action="{{ url_for('delete_question', question_id=question.id) }}"
+                                        onsubmit="return confirm('Delete this question?');">
+                                        <button class="btn btn-sm btn-outline-danger">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
